@@ -13,6 +13,7 @@ class Student
  end
 
 
+
 def full_name()
   return "#{@first_name} #{@last_name}"
 end
@@ -34,6 +35,13 @@ def save()
    student_data = SqlRunner.run(sql, values)
    @id = student_data.first()['id'].to_i
  end
+
+
+def self.delete_all()
+  sql = "DELETE FROM students;"
+  SqlRunner.run(sql)
+end
+
 
  def delete()
    sql = "DELETE FROM students
@@ -57,5 +65,6 @@ def save()
    result = Student.new( student.first )
    return result
  end
+
 
 end
