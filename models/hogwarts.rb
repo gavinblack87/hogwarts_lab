@@ -45,7 +45,7 @@ def save()
  def self.all()
    sql = "SELECT * FROM students"
    students = SqlRunner.run( sql )
-   result = students.map { |student| Student.new( student ) }
+   result = students.map { |student| Student.new(student) }
    return result
  end
 
