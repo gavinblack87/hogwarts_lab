@@ -2,13 +2,13 @@ require_relative('../db/sql_runner.rb')
 
 class Student
 
- attr_reader :first_name, :last_name, :house, :age, :id
+ attr_reader :first_name, :last_name, :house_id, :age, :id
 
  def initialize( options )
    @id = options['id'].to_i
    @first_name = options['first_name']
    @last_name = options['last_name']
-   @house = options['house']
+   @house_id = options['house_id'].to_i
    @age = options['age'].to_i
  end
 
@@ -23,7 +23,7 @@ def save()
    (
      first_name,
      last_name,
-     house,
+     house_id,
      age
    )
    VALUES
@@ -31,7 +31,7 @@ def save()
      $1, $2, $3, $4
    )
    RETURNING *"
-   values = [@first_name, @last_name, @house, @age]
+   values = [@first_name, @last_name, @house_id, @age]
    student_data = SqlRunner.run(sql, values)
    @id = student_data.first()['id'].to_i
  end
@@ -66,5 +66,18 @@ end
    return result
  end
 
+def self.find(house)
+  sql = "SELECT houses.* FROM houses
+  INNER JOIN students
+  ON students.house_id = house.id
+  WHERE student_id = $1"
+  values = [@id]
+  house_data = SqlRunner.run(sql, values)
+  return House.map_items(house_data)
+end
 
+def self.map_items(student_data)
+  result = student_data.map{|student| Student.new(student)}
+  return result
+end
 end

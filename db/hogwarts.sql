@@ -5,7 +5,7 @@ CREATE TABLE students (
   id SERIAL4 primary key,
   first_name varchar(255),
   last_name varchar(255),
-  house varchar(255),
+  house_id INT4 REFERENCES houses(id),
   age int4
 );
 

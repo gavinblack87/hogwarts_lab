@@ -2,7 +2,7 @@
 
 <% @students.each do |student|%>
 <p>Name: <%= student.full_name() %></p>
-<p>House: <%= student.house() %></p>
+<p>House: <%= student.house_id() %></p>
 <p>Age: <%= student.age() %></p>
 <p><a href="/students/<%= student.id %>">Show student</a></p>
 <hr/>
