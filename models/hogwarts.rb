@@ -11,6 +11,10 @@ class Student
  end
 
 
+def full_name()
+  return "#{@first_name} #{@last_name}"
+end
+
 def save()
    sql = "INSERT INTO hogwarts
    (
